@@ -1,0 +1,10 @@
+*.swp
+*.o
+*.a
+*.out
+.vscode/*
+checker_linux
+checker
+push_swap
+push_swap_visualizer
+imgui.ini

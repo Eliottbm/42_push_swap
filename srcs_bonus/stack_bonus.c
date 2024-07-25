@@ -1,0 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   stack_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/23 14:17:49 by ebengtss          #+#    #+#             */
+/*   Updated: 2024/07/23 14:22:20 by ebengtss         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../incs_bonus/push_swap_bonus.h"
+
+int	add_to_stack(char **str, t_data *data)
+{
+	t_list	*tmpstack;
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		tmpstack = ft_lstnew(ft_atoi(str[i]));
+		if (!tmpstack)
+			return (ft_putstr_fd("Error\nfailed to make list\n", 2), 1);
+		ft_lstadd_back(&(data->stack_a), tmpstack);
+		i++;
+	}
+	return (0);
+}
+
+int	make_stack(char **str, t_data *data)
+{
+	char	**tmpsplit;
+	size_t	i;
+	size_t	j;
+
+	data->stack_a = NULL;
+	data->stack_b = NULL;
+	i = 1;
+	while (str[i])
+	{
+		if (checknum(str[i]))
+			return (ft_putstr_fd("Error\nnon numeric arg\n", 2), 1);
+		j = 0;
+		tmpsplit = ft_split(str[i], ' ');
+		if (!tmpsplit)
+			return (ft_putstr_fd("Error\nfailed malloc\n", 2), 1);
+		if (add_to_stack(tmpsplit, data))
+			return (freesplit(tmpsplit), 1);
+		freesplit(tmpsplit);
+		i++;
+	}
+	return (0);
+}
