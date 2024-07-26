@@ -69,7 +69,7 @@ int	count_moove2(int i_a, int i_b)
 	return (mvcnt);
 }
 
-int	count_moove(t_data *data, int bv)
+int	count_moove(t_data *data)
 {
 	int		mvcnt;
 
@@ -83,7 +83,7 @@ int	count_moove(t_data *data, int bv)
 	if (mvcnt < data->count || data->count < 0)
 	{
 		data->count = mvcnt;
-		if (build_moove(data, data->i_a, data->i_b, bv))
+		if (build_moove(data, data->i_a, data->i_b))
 			return (1);
 	}
 	return (0);

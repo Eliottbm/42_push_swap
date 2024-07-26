@@ -82,7 +82,7 @@ int	build_moove2(t_data *data, int i_a, int i_b, int i)
 	return (i);
 }
 
-int	build_moove(t_data *data, int i_a, int i_b, int bv)
+int	build_moove(t_data *data, int i_a, int i_b)
 {
 	int		i;
 
@@ -92,7 +92,6 @@ int	build_moove(t_data *data, int i_a, int i_b, int bv)
 	if (!(data->comp))
 		return (1);
 	i = 0;
-	(void)bv;
 	if (data->rr_a == data->rr_b && i_a >= 1 && i_b >= 1)
 		i = build_moove2(data, i_a, i_b, i);
 	else

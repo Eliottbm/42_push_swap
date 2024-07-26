@@ -29,7 +29,7 @@ int	a_lookup(t_data *data, int bv, int startend)
 			if (which_setup(data, a, bv))
 				return (1);
 		if (data->from_ab == 0 && a->value < data->median->value)
-			if (count_moove(data, a->value))
+			if (count_moove(data))
 				return (1);
 		if (startend == 0)
 			a = a->next;

@@ -56,7 +56,6 @@ int	make_stack(char **str, t_data *data)
 {
 	char	**tmpsplit;
 	size_t	i;
-	size_t	j;
 
 	data->stack_a = NULL;
 	data->stack_b = NULL;
@@ -65,7 +64,6 @@ int	make_stack(char **str, t_data *data)
 	{
 		if (checknum(str[i]))
 			return (ft_putstr_fd("Error\n", 2), 1);
-		j = 0;
 		tmpsplit = ft_split(str[i], ' ');
 		if (!tmpsplit)
 			return (ft_putstr_fd("Error\n", 2), 1);

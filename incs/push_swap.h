@@ -115,11 +115,11 @@ int		make_stack(char **str, t_data *data);
 
 int		add_to_stack(char **str, t_data *data);
 
-int		count_moove(t_data *data, int bv);
+int		count_moove(t_data *data);
 
 int		count_moove2(int i_a, int i_b);
 
-int		build_moove(t_data *data, int i_a, int i_b, int bv);
+int		build_moove(t_data *data, int i_a, int i_b);
 
 int		build_moove2(t_data *data, int i_a, int i_b, int i);
 

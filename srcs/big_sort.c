@@ -21,7 +21,7 @@ int	which_setup(t_data *data, t_list *a, int bv)
 		return (0);
 	if ((data->rr_a == 0 && a->value >= bv && bv >= npv)
 		|| (data->rr_a == 1 && a->value <= bv && bv <= npv))
-		if (count_moove(data, bv))
+		if (count_moove(data))
 			return (1);
 	if ((a == data->min && bv < a->value)
 		|| (a == data->max && bv > a->value))
@@ -30,7 +30,7 @@ int	which_setup(t_data *data, t_list *a, int bv)
 			data->is_minmax = 0;
 		else if (data->rr_a == 0 && bv > a->value)
 			data->is_minmax = 1;
-		if (count_moove(data, bv))
+		if (count_moove(data))
 			return (1);
 	}
 	return (0);
