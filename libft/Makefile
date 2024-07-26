@@ -6,7 +6,7 @@
 #    By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/24 14:26:10 by ebengtss          #+#    #+#              #
-#    Updated: 2024/07/05 15:45:23 by ebengtss         ###   ########.fr        #
+#    Updated: 2024/07/26 15:57:34 by ebengtss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,37 +40,38 @@ SRCS_FILES		=	ft_isascii.c		ft_isprint.c		ft_strlen.c			\
 					ft_putchar_len.c	ft_puthex_len.c		ft_putnbr_len.c		\
 					ft_putstr_len.c		ft_putuns_len.c
 
-SRCS			=	$(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJS_DIR), $(SRCS_FILES:.c=.o))
 
 DEF_COLOR		=	\033[0;39m
-MAGENTA			=	\033[0;95m
 GREEN			=	\033[0;92m
-DEF_WEIGHT		=	\e[0m
-BOLD_WEIGHT		=	\e[1m
+DEF_STYLE		=	\e[0m
+BOLD_OPACITY	=	\e[1m\e[2m
+RESET_LINE		=	\033[A\033[K
 
 OBJSF			=	.cache_exists
 
 all				:	$(NAME)
 
 $(NAME)			:	$(OBJS)
+	@echo "$(RESET_LINE)$(BOLD_OPACITY)[ LIBFT ]$(DEF_STYLE)	compiling:	$(GREEN) ✔ $(DEF_COLOR)"
 	@$(AR) $@ $?
-	@echo "$(BOLD_WEIGHT)[LIBFT]$(DEF_WEIGHT) make: $(GREEN)OK$(DEF_COLOR)"
+	@echo "$(BOLD_OPACITY)[ LIBFT ]$(DEF_STYLE)	make:		$(GREEN) ✔ $(DEF_COLOR)"
 
 $(OBJS_DIR)%.o	:	$(SRCS_DIR)%.c | $(OBJSF)
 	@$(CC) $(CFLAGS) $(INCS_DIR) -c $< -o $@
-	@echo "$(BOLD_WEIGHT)[LIBFT]$(DEF_WEIGHT) compiling: $(MAGENTA) $< $(DEF_COLOR)"
+	@echo "$(RESET_LINE)$(BOLD_OPACITY)[ LIBFT ]$(DEF_STYLE)	compiling:	$(GREEN) $< $(DEF_COLOR)"
 
 $(OBJSF)	:
+	@echo "$(BOLD_OPACITY)[ LIBFT ]$(DEF_STYLE)	nothing to do"
 	@mkdir -p $(OBJS_DIR)
 
 clean			:
 	@rm -rf $(OBJS_DIR)
-	@echo "$(BOLD_WEIGHT)[LIBFT]$(DEF_WEIGHT) clean: $(GREEN)OK$(DEF_COLOR)"
+	@echo "$(BOLD_OPACITY)[ LIBFT ]$(DEF_STYLE)	clean:		$(GREEN) ✔ $(DEF_COLOR)"
 
 fclean			:	clean
 	@rm -f $(NAME)
-	@echo "$(BOLD_WEIGHT)[LIBFT]$(DEF_WEIGHT) fclean: $(GREEN)OK$(DEF_COLOR)"
+	@echo "$(BOLD_OPACITY)[ LIBFT ]$(DEF_STYLE)	fclean:		$(GREEN) ✔ $(DEF_COLOR)"
 
 re				:	fclean all
 

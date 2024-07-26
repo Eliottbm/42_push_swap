@@ -6,11 +6,34 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 14:17:49 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/23 14:22:20 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:30:41 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs_bonus/push_swap_bonus.h"
+
+int	checknum(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isdigit(str[i]) == 0
+			&& (str[i] != '+' && str[i] != '-' && str[i] != ' '))
+			return (1);
+		if ((str[i] == '+' || str[i] == '-')
+			&& (((str[i - 1] && str[i - 1] != ' '))
+				|| (!str[i + 1] || (str[i + 1]
+						&& ft_isdigit(str[i + 1]) == 0))))
+		{
+			ft_printf("ff:%c\n", str[i]);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
 
 int	add_to_stack(char **str, t_data *data)
 {
@@ -22,7 +45,7 @@ int	add_to_stack(char **str, t_data *data)
 	{
 		tmpstack = ft_lstnew(ft_atoi(str[i]));
 		if (!tmpstack)
-			return (ft_putstr_fd("Error\nfailed to make list\n", 2), 1);
+			return (ft_putstr_fd("Error\n", 2), 1);
 		ft_lstadd_back(&(data->stack_a), tmpstack);
 		i++;
 	}
@@ -41,11 +64,11 @@ int	make_stack(char **str, t_data *data)
 	while (str[i])
 	{
 		if (checknum(str[i]))
-			return (ft_putstr_fd("Error\nnon numeric arg\n", 2), 1);
+			return (ft_putstr_fd("Error\n", 2), 1);
 		j = 0;
 		tmpsplit = ft_split(str[i], ' ');
 		if (!tmpsplit)
-			return (ft_putstr_fd("Error\nfailed malloc\n", 2), 1);
+			return (ft_putstr_fd("Error\n", 2), 1);
 		if (add_to_stack(tmpsplit, data))
 			return (freesplit(tmpsplit), 1);
 		freesplit(tmpsplit);

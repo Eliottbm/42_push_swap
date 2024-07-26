@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:51:54 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/24 11:29:48 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/26 16:29:43 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ int	big_sort(t_data *data)
 
 	big_sort_initialize(data);
 	if (a_to_b(data))
-		return (ft_putstr_fd("Error\nfailed sort A to B", 2), 1);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	if (b_to_a(data))
-		return (ft_putstr_fd("Error\nfailed sort B to A", 2), 1);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	min_a = stack_maxmin(data->stack_a, 0);
 	rotrev_a = rot_or_rev(data->stack_a, min_a, data->size_a);
 	while (data->stack_a != min_a)
