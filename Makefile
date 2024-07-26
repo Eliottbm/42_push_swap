@@ -6,7 +6,7 @@
 #    By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 11:16:00 by ebengtss          #+#    #+#              #
-#    Updated: 2024/07/26 16:04:09 by ebengtss         ###   ########.fr        #
+#    Updated: 2024/07/26 17:37:02 by ebengtss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ $(NAME)			:	$(LIBFT_A) $(OBJS)
 	@echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	make:		$(GREEN) ✔ $(DEF_COLOR)"
 
 $(NAME_BONUS)	:	$(LIBFT_A) $(OBJS_BONUS)
-	@echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	compiling:	$(GREEN) ✔ $(DEF_COLOR)"
+	@echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	bonus compiling:$(GREEN) ✔ $(DEF_COLOR)"
 	@$(CC) -o $(NAME_BONUS) $(CFLAGS) $(INCS_DIR_BONUS) $(OBJS_BONUS) $(LIBFT_A)
 	@echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	bonus:		$(GREEN) ✔ $(DEF_COLOR)"
 
@@ -89,14 +89,14 @@ $(OBJS_DIR)%.o	:	$(SRCS_DIR)%.c | $(OBJSF)
 
 $(OBJS_DIR_BONUS)%.o	:	$(SRCS_DIR_BONUS)%.c | $(OBJSF_BONUS)
 	@$(CC) $(CFLAGS) $(INCS_DIR_BONUS) -c $< -o $@
-	@echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	compiling:	$(GREEN) $< $(DEF_COLOR)"
+	@echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	bonus compiling:$(GREEN) $< $(DEF_COLOR)"
 
 $(OBJSF)	:
 	@echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	nothing to do"
 	@mkdir -p $(OBJS_DIR)
 
 $(OBJSF_BONUS)	:
-	@echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	nothing to do"
+	@echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	bonus nothing to do"
 	@mkdir -p $(OBJS_DIR_BONUS)
 
 clean			:
@@ -111,6 +111,46 @@ fclean			:	clean
 	@rm -f $(NAME_BONUS)
 	@echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	fclean:		$(GREEN) ✔ $(DEF_COLOR)"
 
+runtest			:	all bonus
+	@echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	running test ..."
+	@if [ -z "$(ELM)" ]; then echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Please provide the number of elements to sort (ex: EML=100)"; exit 1; fi
+	@if [ -z "$(RUN)" ]; then echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Please provide the number of test to run (ex: RUN=500)"; exit 1; fi
+	@if [ -z "$(MAX)" ]; then echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Please provide the number of max mooves allowed (ex: MAX=700)"; exit 1; fi
+	@echo " ";
+	@TOTAL_MOVES=0; 																											\
+	SUCCESS_COUNT=0; 																											\
+	MIN_MOVES=999999; 																											\
+	MAX_MOVES=0; 																												\
+	for i in $$(seq 1 $(RUN)); do																								\
+	NUMBERS=$$(shuf -i 1-1000 -n $(ELM) | tr '\n' ' ');																			\
+	ARG="$$NUMBERS";																											\
+	RESULT=$$(./$(NAME) $$ARG | ./$(NAME_BONUS) $$ARG);																			\
+	if [ "$$RESULT" != "OK" ]; then																								\
+		echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Le tri n'a pas réussi pour le test $$i";								\
+		continue;																												\
+	fi;																															\
+	MOVES=$$(./$(NAME) $$ARG | wc -l);																							\
+	TOTAL_MOVES=$$((TOTAL_MOVES + MOVES));																						\
+	echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Test $$i: $$MOVES coups";										\
+	if [ $$MOVES -lt $$MIN_MOVES ]; then																						\
+		MIN_MOVES=$$MOVES;																										\
+	fi;																															\
+	if [ $$MOVES -gt $$MAX_MOVES ]; then																						\
+		MAX_MOVES=$$MOVES;																										\
+	fi;																															\
+	if [ $$MOVES -lt $(MAX) ]; then																								\
+		SUCCESS_COUNT=$$((SUCCESS_COUNT + 1));																					\
+	fi;																															\
+	done;																														\
+	AVERAGE=$$((TOTAL_MOVES / $(RUN)));																							\
+	SUCCESS_PERCENTAGE=$$((SUCCESS_COUNT * 100 / $(RUN)));																		\
+	echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Resultats pour $(RUN) tests avec $(ELM) éléments:";				\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Coups en moyenne:		$(MAGENTA) $$AVERAGE $(DEF_COLOR)";						\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Coups minimum:			$(MAGENTA) $$MIN_MOVES $(DEF_COLOR)";					\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Coups maximum:			$(MAGENTA) $$MAX_MOVES $(DEF_COLOR)";					\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Tests avec moins de $(MAX) coups:	$(MAGENTA) $$SUCCESS_COUNT $(DEF_COLOR)";	\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Pourcentage de réussite:	$(MAGENTA) $$SUCCESS_PERCENTAGE% $(DEF_COLOR)"
+
 re				:	fclean all
 
-.PHONY			:	all bonus clean fclean re
+.PHONY			:	all bonus clean fclean re runtest
