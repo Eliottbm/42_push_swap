@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:51:54 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/27 21:36:30 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 22:47:02 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 void	big_sort_initialize(t_data *data)
 {
 	data->size = data->size_a;
-	data->median = data->size / 2 + data->size % 2;
-	data->quart = data->size / 4 + data->size % 2;
+	data->q1 = data->size / 4 + data->size % 2;
+	data->q2 = data->size / 2 + data->size % 2;
+	data->q3 = data->size / 4 + data->size / 2 + data->size % 2;
 	data->from_ab = 0;
 	data->rr_b = 0;
 	data->i_b = 0;
@@ -38,19 +39,17 @@ int	a_to_b2(t_data *data)
 
 int	a_to_b(t_data *data)
 {
-	while (data->size_b < data->median)
+	while (data->size_b < data->q2)
 	{
 		if (a_to_b2(data))
 			return (1);
-		if (data->stack_b && data->stack_b->pos <= data->quart)
+		if (data->stack_b && data->stack_b->pos <= data->q1)
 			rotate_b(data);
 	}
 	data->half_a = 1;
-	while (data->size_b < data->median + data->quart)
-	{
+	while (data->size_b < data->q3)
 		if (a_to_b2(data))
 			return (1);
-	}
 	while (data->size_a > 3)
 	{
 		if (is_highest3a(data, data->stack_a))
@@ -68,11 +67,11 @@ int	b_to_a(t_data *data)
 	while (data->stack_b)
 	{
 		data->count = -1;
-		if (data->size_a == data->quart)
+		if (data->size_a == data->q1)
 			data->is_med = 1;
-		if (data->size_a == data->median)
+		if (data->size_a == data->q2)
 			data->is_med = 2;
-		if (data->size_a == data->median + data->quart)
+		if (data->size_a == data->q3)
 			data->is_med = 3;
 		if (b_lookup(data, 0)
 			|| b_lookup(data, 1))

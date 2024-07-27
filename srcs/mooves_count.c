@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:14:58 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/27 21:36:07 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 22:45:56 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	which_setup(t_data *data, t_list *a, t_list *b)
 {
 	int	npv;
 
-	if (data->is_med == 0 && b->pos <= data->median + data->quart)
+	if (data->is_med == 0 && b->pos <= data->q3)
 		return (0);
-	if (data->is_med == 1 && b->pos <= data->median)
+	if (data->is_med == 1 && b->pos <= data->q2)
 		return (0);
-	if (data->is_med == 2 && b->pos <= data->quart)
+	if (data->is_med == 2 && b->pos <= data->q1)
 		return (0);
 	npv = stack_prevnext(a, data->rr_a);
 	if ((data->rr_a == 0 && a->value >= b->value && b->value >= npv)

@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 14:42:11 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/27 21:39:11 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 22:42:37 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef struct s_data
 	int		is_med;
 	int		count;
 	int		from_ab;
-	int		median;
-	int		quart;
+	int		q1;
+	int		q2;
+	int		q3;
 	int		half_a;
 	char	*comp;
 	t_list	*min;
