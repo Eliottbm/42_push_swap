@@ -6,7 +6,7 @@
 #    By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 11:16:00 by ebengtss          #+#    #+#              #
-#    Updated: 2024/07/27 21:38:24 by ebengtss         ###   ########.fr        #
+#    Updated: 2024/07/28 01:02:41 by ebengtss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,39 +118,39 @@ runtest			:	all bonus
 	@if [ -z "$(RUN)" ]; then echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Please provide the number of test to run (ex: RUN=500)"; exit 1; fi
 	@if [ -z "$(MAX)" ]; then echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Please provide the number of max mooves allowed (ex: MAX=700)"; exit 1; fi
 	@echo " ";
-	@TOTAL_MOVES=0; 																											\
-	SUCCESS_COUNT=0; 																											\
-	MIN_MOVES=999999; 																											\
-	MAX_MOVES=0; 																												\
-	for i in $$(seq 1 $(RUN)); do																								\
-	NUMBERS=$$(shuf -i 1-1000 -n $(ELM) | tr '\n' ' ');																			\
-	ARG="$$NUMBERS";																											\
-	RESULT=$$(./$(NAME) $$ARG | ./$(NAME_BONUS) $$ARG);																			\
-	if [ "$$RESULT" != "OK" ]; then																								\
-		echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Le tri n'a pas réussi pour le test $$i";								\
-		continue;																												\
-	fi;																															\
-	MOVES=$$(./$(NAME) $$ARG | wc -l);																							\
-	TOTAL_MOVES=$$((TOTAL_MOVES + MOVES));																						\
-	echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Test $$i: $$MOVES coups";										\
-	if [ $$MOVES -lt $$MIN_MOVES ]; then																						\
-		MIN_MOVES=$$MOVES;																										\
-	fi;																															\
-	if [ $$MOVES -gt $$MAX_MOVES ]; then																						\
-		MAX_MOVES=$$MOVES;																										\
-	fi;																															\
-	if [ $$MOVES -lt $(MAX) ]; then																								\
-		SUCCESS_COUNT=$$((SUCCESS_COUNT + 1));																					\
-	fi;																															\
-	done;																														\
-	AVERAGE=$$((TOTAL_MOVES / $(RUN)));																							\
-	SUCCESS_PERCENTAGE=$$((SUCCESS_COUNT * 100 / $(RUN)));																		\
-	echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Resultats pour $(RUN) tests avec $(ELM) éléments:";				\
-	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Coups en moyenne:		$(MAGENTA) $$AVERAGE $(DEF_COLOR)";						\
-	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Coups minimum:			$(MAGENTA) $$MIN_MOVES $(DEF_COLOR)";					\
-	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Coups maximum:			$(MAGENTA) $$MAX_MOVES $(DEF_COLOR)";					\
-	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Tests avec moins de $(MAX) coups:	$(MAGENTA) $$SUCCESS_COUNT $(DEF_COLOR)";	\
-	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	Pourcentage de réussite:	$(MAGENTA) $$SUCCESS_PERCENTAGE% $(DEF_COLOR)"
+	@TOTAL_MOVES=0; 																												\
+	SUCCESS_COUNT=0; 																												\
+	MIN_MOVES=999999; 																												\
+	MAX_MOVES=0; 																													\
+	for i in $$(seq 1 $(RUN)); do																									\
+	NUMBERS=$$(shuf -i 1-1000 -n $(ELM) | tr '\n' ' ');																				\
+	ARG="$$NUMBERS";																												\
+	RESULT=$$(./$(NAME) $$ARG | ./$(NAME_BONUS) $$ARG);																				\
+	if [ "$$RESULT" != "OK" ]; then																									\
+		echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	failed for test $$i";														\
+		continue;																													\
+	fi;																																\
+	MOVES=$$(./$(NAME) $$ARG | wc -l);																								\
+	TOTAL_MOVES=$$((TOTAL_MOVES + MOVES));																							\
+	echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	test $$i:$(MAGENTA) $$MOVES mooves $(DEF_COLOR)";					\
+	if [ $$MOVES -lt $$MIN_MOVES ]; then																							\
+		MIN_MOVES=$$MOVES;																											\
+	fi;																																\
+	if [ $$MOVES -gt $$MAX_MOVES ]; then																							\
+		MAX_MOVES=$$MOVES;																											\
+	fi;																																\
+	if [ $$MOVES -lt $(MAX) ]; then																									\
+		SUCCESS_COUNT=$$((SUCCESS_COUNT + 1));																						\
+	fi;																																\
+	done;																															\
+	AVERAGE=$$((TOTAL_MOVES / $(RUN)));																								\
+	SUCCESS_PERCENTAGE=$$((SUCCESS_COUNT * 100 / $(RUN)));																			\
+	echo "$(RESET_LINE)$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	results for $(RUN) tests with $(ELM) numbers:";						\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	average mooves:			$(MAGENTA) $$AVERAGE $(DEF_COLOR)";						\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	minimum mooves:			$(MAGENTA) $$MIN_MOVES $(DEF_COLOR)";					\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	maximum mooves:			$(MAGENTA) $$MAX_MOVES $(DEF_COLOR)";					\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	tests with less than $(MAX) mooves:$(MAGENTA) $$SUCCESS_COUNT $(DEF_COLOR)";	\
+	echo "$(BOLD_OPACITY)[ PUSH_SWAP ]$(DEF_STYLE)	success rate:			$(MAGENTA) $$SUCCESS_PERCENTAGE% $(DEF_COLOR)"
 
 re				:	fclean all
 
