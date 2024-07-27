@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 14:42:11 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/27 17:19:32 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:23:53 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_list	*stack_maxmin(t_list *stack, int minmax);
 
 t_list	*clone_stack(t_data *data);
 
-t_list	*sort_clone(t_data *data)
+t_list	*sort_clone(t_data *data);
 
 void	freesplit(char **splitted);
 
