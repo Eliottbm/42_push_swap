@@ -26,10 +26,7 @@ int	checknum(char *str)
 			&& (((str[i - 1] && str[i - 1] != ' '))
 				|| (!str[i + 1] || (str[i + 1]
 						&& ft_isdigit(str[i + 1]) == 0))))
-		{
-			ft_printf("ff:%c\n", str[i]);
 			return (1);
-		}
 		i++;
 	}
 	return (0);
