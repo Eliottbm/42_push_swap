@@ -51,7 +51,6 @@ int	a_to_b(t_data *data)
 {
 	while (data->size_b < data->medianplace)
 	{
-		data->is_minmax = -1;
 		data->count = -1;
 		if (a_lookup(data, -1, 0)
 			|| a_lookup(data, -1, 1))
