@@ -12,7 +12,7 @@
 
 #include "../incs/push_swap.h"
 
-int	a_lookup(t_data *data, int bv, int startend)
+int	a_lookup(t_data *data, t_list *b, int startend)
 {
 	t_list	*a;
 
@@ -26,9 +26,9 @@ int	a_lookup(t_data *data, int bv, int startend)
 	while (a && data->i_a <= (data->size_a / 2))
 	{
 		if (data->from_ab == 1)
-			if (which_setup(data, a, bv))
+			if (which_setup(data, a, b))
 				return (1);
-		if (data->from_ab == 0 && a->value < data->median->value)
+		if (data->from_ab == 0 && a->pos < data->median)
 			if (count_moove(data))
 				return (1);
 		if (startend == 0)
@@ -52,8 +52,8 @@ int	b_lookup(t_data *data, int startend)
 		b = ft_lstlast(data->stack_b);
 	while (b && data->i_b <= data->size_b / 2)
 	{
-		if (a_lookup(data, b->value, 0)
-			|| a_lookup(data, b->value, 1))
+		if (a_lookup(data, b, 0)
+			|| a_lookup(data, b, 1))
 			return (1);
 		if (startend == 0)
 			b = b->next;

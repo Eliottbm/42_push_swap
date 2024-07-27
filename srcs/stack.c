@@ -43,10 +43,10 @@ int	add_to_stack(char **str, t_data *data)
 	{
 		tmpnb = ft_atoi(str[i]);
 		if (tmpnb > 2147483647 || tmpnb < -2147483648)
-			return (ft_putstr_fd("Error\n", 2), 1);
+			return (1);
 		tmpstack = ft_lstnew((int)tmpnb);
 		if (!tmpstack)
-			return (ft_putstr_fd("Error\n", 2), 1);
+			return (1);
 		ft_lstadd_back(&(data->stack_a), tmpstack);
 		i++;
 	}
@@ -93,16 +93,16 @@ int	make_stack(char **str, t_data *data)
 	while (str[i])
 	{
 		if (checknum(str[i]))
-			return (ft_putstr_fd("Error\n", 2), 1);
+			return (1);
 		tmpsplit = ft_split(str[i], ' ');
 		if (!tmpsplit)
-			return (ft_putstr_fd("Error\n", 2), 1);
+			return (1);
 		if (add_to_stack(tmpsplit, data))
 			return (freesplit(tmpsplit), 1);
 		freesplit(tmpsplit);
 		i++;
 	}
 	if (check_double(data))
-		return (ft_putstr_fd("Error\n", 2), 1);
+		return (1);
 	return (0);
 }

@@ -19,6 +19,7 @@ t_list	*ft_lstnew(int number)
 	newelem = malloc(sizeof(t_list));
 	if (!newelem)
 		return (NULL);
+	newelem->pos = 0;
 	newelem->value = number;
 	newelem->prev = NULL;
 	newelem->next = NULL;

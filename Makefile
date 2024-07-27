@@ -6,7 +6,7 @@
 #    By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 11:16:00 by ebengtss          #+#    #+#              #
-#    Updated: 2024/07/26 17:37:02 by ebengtss         ###   ########.fr        #
+#    Updated: 2024/07/27 17:17:50 by ebengtss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ INCS_DIR_BONUS		=	incs_bonus
 SRCS_FILES			=	main.c					\
 						frees.c					\
 						lookup.c				\
-						median.c				\
+						position.c				\
 						stack.c					\
 						small_sort.c			\
 						big_sort.c				\

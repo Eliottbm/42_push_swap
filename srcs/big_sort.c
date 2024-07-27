@@ -12,23 +12,23 @@
 
 #include "../incs/push_swap.h"
 
-int	which_setup(t_data *data, t_list *a, int bv)
+int	which_setup(t_data *data, t_list *a, t_list *b)
 {
 	int	npv;
 
 	npv = stack_prevnext(a, data->rr_a);
-	if (data->is_med == 0 && bv < data->median->value)
+	if (data->is_med == 0 && b->pos < data->median)
 		return (0);
-	if ((data->rr_a == 0 && a->value >= bv && bv >= npv)
-		|| (data->rr_a == 1 && a->value <= bv && bv <= npv))
+	if ((data->rr_a == 0 && a->value >= b->value && b->value >= npv)
+		|| (data->rr_a == 1 && a->value <= b->value && b->value <= npv))
 		if (count_moove(data))
 			return (1);
-	if ((a == data->min && bv < a->value)
-		|| (a == data->max && bv > a->value))
+	if ((a == data->min && b->value < a->value)
+		|| (a == data->max && b->value > a->value))
 	{
-		if (data->rr_a == 1 && bv < a->value)
+		if (data->rr_a == 1 && b->value < a->value)
 			data->is_minmax = 0;
-		else if (data->rr_a == 0 && bv > a->value)
+		else if (data->rr_a == 0 && b->value > a->value)
 			data->is_minmax = 1;
 		if (count_moove(data))
 			return (1);
@@ -38,7 +38,7 @@ int	which_setup(t_data *data, t_list *a, int bv)
 
 void	big_sort_initialize(t_data *data)
 {
-	data->medianplace = find_median(data);
+	data->median = data->size_a / 2;
 	data->from_ab = 0;
 	data->rr_b = 0;
 	data->i_b = 0;
@@ -49,11 +49,11 @@ void	big_sort_initialize(t_data *data)
 
 int	a_to_b(t_data *data)
 {
-	while (data->size_b < data->medianplace)
+	while (data->size_b < data->median)
 	{
 		data->count = -1;
-		if (a_lookup(data, -1, 0)
-			|| a_lookup(data, -1, 1))
+		if (a_lookup(data, NULL, 0)
+			|| a_lookup(data, NULL, 1))
 			return (1);
 		if (data->count == -1)
 			break ;
@@ -71,7 +71,7 @@ int	b_to_a(t_data *data)
 	while (data->stack_b)
 	{
 		data->count = -1;
-		if (data->size_a == data->medianplace)
+		if (data->size_a == data->median)
 			data->is_med = 1;
 		if (b_lookup(data, 0)
 			|| b_lookup(data, 1))
@@ -86,11 +86,13 @@ int	big_sort(t_data *data)
 	t_list	*min_a;
 	int		rotrev_a;
 
+	if (get_pos(data))
+		return (1);
 	big_sort_initialize(data);
 	if (a_to_b(data))
-		return (ft_putstr_fd("Error\n", 2), 1);
+		return (1);
 	if (b_to_a(data))
-		return (ft_putstr_fd("Error\n", 2), 1);
+		return (1);
 	min_a = stack_maxmin(data->stack_a, 0);
 	rotrev_a = rot_or_rev(data->stack_a, min_a, data->size_a);
 	while (data->stack_a != min_a)

@@ -22,14 +22,14 @@ int	main(int ac, char **av)
 	if (ac == 1)
 		return (freelsts(data), 0);
 	if (make_stack(av, data))
-		return (freelsts(data), 1);
+		return (freelsts(data), ft_putstr_fd("Error\n", 2), 1);
 	if (check_sort(data))
 	{
 		if (data->size_a <= 5)
 			small_sort(data);
 		else
 			if (big_sort(data))
-				return (1);
+				return (freelsts(data), ft_putstr_fd("Error\n", 2), 1);
 	}
 	return (freelsts(data), 0);
 }

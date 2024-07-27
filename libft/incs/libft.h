@@ -25,6 +25,7 @@
 
 typedef struct s_list
 {
+	int				pos;
 	int				value;
 	struct s_list	*prev;
 	struct s_list	*next;

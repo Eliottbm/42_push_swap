@@ -18,13 +18,13 @@ int	main(int ac, char **av)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (ft_putstr_fd("Error\n", 2), 1);
+		return (1);
 	if (ac == 1)
 		return (freelsts(data), 0);
 	if (make_stack(av, data))
-		return (ft_putstr_fd("Error\n", 2), freelsts(data), 1);
+		return (freelsts(data), ft_putstr_fd("Error\n", 2), 1);
 	if (listen_instr(data))
-		return (ft_putstr_fd("Error\n", 2), freelsts(data), 1);
+		return (freelsts(data), ft_putstr_fd("Error\n", 2), 1);
 	if (check_sort(data) || data->stack_b)
 		ft_printf("KO\n");
 	else

@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 14:42:11 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/25 11:39:56 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 17:19:32 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,19 @@ typedef struct s_data
 	int		is_med;
 	int		count;
 	int		from_ab;
-	int		medianplace;
+	int		median;
 	char	*comp;
 	t_list	*min;
 	t_list	*max;
-	t_list	*median;
 	t_list	*stack_a;
 	t_list	*stack_b;
 }			t_data;
 
 t_list	*stack_maxmin(t_list *stack, int minmax);
+
+t_list	*clone_stack(t_data *data);
+
+t_list	*sort_clone(t_data *data)
 
 void	freesplit(char **splitted);
 
@@ -93,19 +96,17 @@ void	big_sort_initialize(t_data *data);
 
 void	stack_initialize(t_data *data);
 
+int		get_pos(t_data *data);
+
 int		checknum(char *str);
 
 int		check_double(t_data *data);
 
-int		find_median(t_data *data);
-
-int		find_median2(t_data *data, int cmpnodeval);
-
 int		stack_prevnext(t_list *stack, int startend);
 
-int		which_setup(t_data *data, t_list *a, int bv);
+int		which_setup(t_data *data, t_list *a, t_list *b);
 
-int		a_lookup(t_data *data, int bv, int startend);
+int		a_lookup(t_data *data, t_list *b, int startend);
 
 int		b_lookup(t_data *data, int startend);
 
