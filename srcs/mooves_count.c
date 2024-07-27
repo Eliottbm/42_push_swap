@@ -6,11 +6,39 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/19 15:14:58 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/23 12:41:34 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:36:07 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
+
+int	which_setup(t_data *data, t_list *a, t_list *b)
+{
+	int	npv;
+
+	if (data->is_med == 0 && b->pos <= data->median + data->quart)
+		return (0);
+	if (data->is_med == 1 && b->pos <= data->median)
+		return (0);
+	if (data->is_med == 2 && b->pos <= data->quart)
+		return (0);
+	npv = stack_prevnext(a, data->rr_a);
+	if ((data->rr_a == 0 && a->value >= b->value && b->value >= npv)
+		|| (data->rr_a == 1 && a->value <= b->value && b->value <= npv))
+		if (count_moove(data))
+			return (1);
+	if ((a == data->min && b->value < a->value)
+		|| (a == data->max && b->value > a->value))
+	{
+		if (data->rr_a == 1 && b->value < a->value)
+			data->is_minmax = 0;
+		else if (data->rr_a == 0 && b->value > a->value)
+			data->is_minmax = 1;
+		if (count_moove(data))
+			return (1);
+	}
+	return (0);
+}
 
 void	make_moove2(t_data *data, int i)
 {

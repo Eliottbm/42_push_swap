@@ -6,61 +6,58 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 12:51:54 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/26 16:29:43 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:36:30 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
 
-int	which_setup(t_data *data, t_list *a, t_list *b)
-{
-	int	npv;
-
-	npv = stack_prevnext(a, data->rr_a);
-	if (data->is_med == 0 && b->pos < data->median)
-		return (0);
-	if ((data->rr_a == 0 && a->value >= b->value && b->value >= npv)
-		|| (data->rr_a == 1 && a->value <= b->value && b->value <= npv))
-		if (count_moove(data))
-			return (1);
-	if ((a == data->min && b->value < a->value)
-		|| (a == data->max && b->value > a->value))
-	{
-		if (data->rr_a == 1 && b->value < a->value)
-			data->is_minmax = 0;
-		else if (data->rr_a == 0 && b->value > a->value)
-			data->is_minmax = 1;
-		if (count_moove(data))
-			return (1);
-	}
-	return (0);
-}
-
 void	big_sort_initialize(t_data *data)
 {
-	data->median = data->size_a / 2;
+	data->size = data->size_a;
+	data->median = data->size / 2 + data->size % 2;
+	data->quart = data->size / 4 + data->size % 2;
 	data->from_ab = 0;
 	data->rr_b = 0;
 	data->i_b = 0;
 	data->is_med = 0;
+	data->half_a = 0;
 	data->min = NULL;
 	data->max = NULL;
+}
+
+int	a_to_b2(t_data *data)
+{
+	data->count = -1;
+	if (a_lookup(data, NULL, 0)
+		|| a_lookup(data, NULL, 1))
+		return (1);
+	make_moove(data);
+	return (0);
 }
 
 int	a_to_b(t_data *data)
 {
 	while (data->size_b < data->median)
 	{
-		data->count = -1;
-		if (a_lookup(data, NULL, 0)
-			|| a_lookup(data, NULL, 1))
+		if (a_to_b2(data))
 			return (1);
-		if (data->count == -1)
-			break ;
-		make_moove(data);
+		if (data->stack_b && data->stack_b->pos <= data->quart)
+			rotate_b(data);
 	}
-	while (data->stack_a)
+	data->half_a = 1;
+	while (data->size_b < data->median + data->quart)
+	{
+		if (a_to_b2(data))
+			return (1);
+	}
+	while (data->size_a > 3)
+	{
+		if (is_highest3a(data, data->stack_a))
+			rotrev_high3a(data);
 		push_b(data);
+	}
+	sort_3elems(data);
 	return (0);
 }
 
@@ -71,8 +68,12 @@ int	b_to_a(t_data *data)
 	while (data->stack_b)
 	{
 		data->count = -1;
-		if (data->size_a == data->median)
+		if (data->size_a == data->quart)
 			data->is_med = 1;
+		if (data->size_a == data->median)
+			data->is_med = 2;
+		if (data->size_a == data->median + data->quart)
+			data->is_med = 3;
 		if (b_lookup(data, 0)
 			|| b_lookup(data, 1))
 			return (1);

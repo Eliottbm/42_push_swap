@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 14:42:11 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/27 17:23:53 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:39:11 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_data
 	int		i_b;
 	int		rr_a;
 	int		rr_b;
+	int		size;
 	int		size_a;
 	int		size_b;
 	int		is_minmax;
@@ -29,6 +30,8 @@ typedef struct s_data
 	int		count;
 	int		from_ab;
 	int		median;
+	int		quart;
+	int		half_a;
 	char	*comp;
 	t_list	*min;
 	t_list	*max;
@@ -96,6 +99,8 @@ void	big_sort_initialize(t_data *data);
 
 void	stack_initialize(t_data *data);
 
+void	rotrev_high3a(t_data *data);
+
 int		get_pos(t_data *data);
 
 int		checknum(char *str);
@@ -133,5 +138,7 @@ int		a_to_b(t_data *data);
 int		b_to_a(t_data *data);
 
 int		check_sort(t_data *data);
+
+int		is_highest3a(t_data *data, t_list *stack);
 
 #endif

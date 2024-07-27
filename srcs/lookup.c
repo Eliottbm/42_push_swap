@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:25:06 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/23 12:44:47 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 20:47:01 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	a_lookup(t_data *data, t_list *b, int startend)
 		if (data->from_ab == 1)
 			if (which_setup(data, a, b))
 				return (1);
-		if (data->from_ab == 0 && a->pos < data->median)
+		if (data->from_ab == 0 && ((a->pos <= data->median && data->half_a == 0)
+				|| (a->pos <= data->median + data->quart && data->half_a == 1)))
 			if (count_moove(data))
 				return (1);
 		if (startend == 0)

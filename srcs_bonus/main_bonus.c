@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 14:11:18 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/26 16:32:09 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 19:21:45 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		return (1);
+		return (ft_putstr_fd("Error\n", 2), 1);
 	if (ac == 1)
 		return (freelsts(data), 0);
 	if (make_stack(av, data))

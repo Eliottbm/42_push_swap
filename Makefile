@@ -6,7 +6,7 @@
 #    By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 11:16:00 by ebengtss          #+#    #+#              #
-#    Updated: 2024/07/27 17:17:50 by ebengtss         ###   ########.fr        #
+#    Updated: 2024/07/27 21:38:24 by ebengtss         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS_FILES			=	main.c					\
 						mooves_count.c			\
 						mooves_build.c			\
 						push_swap_utils.c		\
+						push_swap_utils2.c		\
 						instr_push.c			\
 						instr_swap.c			\
 						instr_reverse.c			\

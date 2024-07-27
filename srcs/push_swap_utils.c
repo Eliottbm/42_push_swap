@@ -6,48 +6,31 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 17:10:32 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/25 11:59:22 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/27 21:37:37 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
 
-int	stack_prevnext(t_list *stack, int startend)
+int	is_highest3a(t_data *data, t_list *stack)
 {
-	int		retval;
-
-	if (startend == 0)
-	{
-		if (stack->prev)
-			retval = stack->prev->value;
-		else
-			retval = ft_lstlast(stack)->value;
-	}
-	else
-	{
-		if (stack->next)
-			retval = stack->next->value;
-		else
-			retval = stack->value;
-	}
-	return (retval);
+	if (stack->pos == data->size
+		|| stack->pos == data->size - 1
+		|| stack->pos == data->size - 2)
+		return (1);
+	return (0);
 }
 
-t_list	*stack_maxmin(t_list *stack, int minmax)
+void	rotrev_high3a(t_data *data)
 {
-	t_list	*tmpstack;
-	t_list	*elem;
-
-	tmpstack = stack;
-	elem = stack;
-	while (tmpstack)
-	{
-		if ((tmpstack->value <= elem->value && minmax == 0)
-			|| (tmpstack->value >= elem->value && minmax == 1))
-			elem = tmpstack;
-		tmpstack = tmpstack->next;
-	}
-	return (elem);
+	if (is_highest3a(data, data->stack_a)
+		&& is_highest3a(data, data->stack_a->next)
+		&& is_highest3a(data, ft_lstlast(data->stack_a)) == 0)
+		reverse_a(data);
+	else
+		rotate_a(data);
+	if (is_highest3a(data, data->stack_a))
+		rotate_a(data);
 }
 
 int	rot_or_rev(t_list *stack, t_list *minmax, int stack_size)
