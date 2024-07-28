@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 13:14:51 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/25 11:57:56 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:30:36 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ int	listen_instr(t_data *data)
 	while (buff)
 	{
 		if (exec_instr(data, buff))
-		{
-			free(buff);
 			return (1);
-		}
+		free(buff);
 		buff = ft_get_next_line(0);
 	}
-	free(buff);
 	return (0);
 }
 
