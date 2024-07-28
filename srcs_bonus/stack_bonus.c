@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 14:17:49 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/26 16:30:41 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:10:37 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,39 @@ int	add_to_stack(char **str, t_data *data)
 {
 	t_list	*tmpstack;
 	size_t	i;
+	long	tmpnb;
 
 	i = 0;
 	while (str[i])
 	{
-		tmpstack = ft_lstnew(ft_atoi(str[i]));
+		tmpnb = ft_atoi(str[i]);
+		if (tmpnb > 2147483647 || tmpnb < -2147483648)
+			return (1);
+		tmpstack = ft_lstnew((int)tmpnb);
 		if (!tmpstack)
 			return (1);
 		ft_lstadd_back(&(data->stack_a), tmpstack);
 		i++;
+	}
+	return (0);
+}
+
+int	check_double(t_data *data)
+{
+	t_list	*a;
+	t_list	*a2;
+
+	a = data->stack_a;
+	while (a)
+	{
+		a2 = data->stack_a;
+		while (a2)
+		{
+			if (a->value == a2->value && a != a2)
+				return (1);
+			a2 = a2->next;
+		}
+		a = a->next;
 	}
 	return (0);
 }

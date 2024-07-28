@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:57:23 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/26 16:30:15 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:05:59 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,15 @@ void	stack_initialize(t_data *data)
 	data->stack_a = NULL;
 	data->stack_b = NULL;
 	data->comp = NULL;
+	data->min = NULL;
+	data->max = NULL;
 	data->size_a = 0;
 	data->size_b = 0;
+	data->from_ab = 0;
+	data->rr_b = 0;
+	data->i_b = 0;
+	data->is_med = 0;
+	data->half_a = 0;
 }
 
 int	make_stack(char **str, t_data *data)
