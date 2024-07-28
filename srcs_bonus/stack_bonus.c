@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 14:17:49 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/28 18:10:37 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:58:33 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,7 @@ int	make_stack(char **str, t_data *data)
 		freesplit(tmpsplit);
 		i++;
 	}
+	if (check_double(data))
+		return (1);
 	return (0);
 }

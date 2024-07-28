@@ -6,7 +6,7 @@
 /*   By: ebengtss <ebengtss@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 14:11:53 by ebengtss          #+#    #+#             */
-/*   Updated: 2024/07/24 15:08:08 by ebengtss         ###   ########.fr       */
+/*   Updated: 2024/07/28 18:58:53 by ebengtss         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,7 @@ int		exec_instr(t_data *data, char *buff);
 int		exec_instr2(t_data *data, char *buff);
 
 int		listen_instr(t_data *data);
+
+int		check_double(t_data *data);
 
 #endif
